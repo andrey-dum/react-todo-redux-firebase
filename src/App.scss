@@ -1,5 +1,12 @@
+//@import '../node_modules/@material/react-button/dist/button.css';
+@import '~@material/button/dist/mdc.button.css';
+//@import '~@material/drawer/dist/mdc.drawer.css';
+
+
+
 .App {
-  text-align: center;
+  //text-align: center;
+  display: flex;
 }
 
 .App-logo {
