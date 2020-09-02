@@ -2,11 +2,40 @@
 @import '~@material/button/dist/mdc.button.css';
 //@import '~@material/drawer/dist/mdc.drawer.css';
 
-
-
+.app_title.mdc-drawer__title {
+  display: flex;
+  align-items: center;
+  .rmwc-icon {
+    color: #0d75d6;
+  }
+}
+.mdc-list-divider {
+  list-style-type: none;
+}
+.drawer-links {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  &:active,
+  &:focus,
+  &:visited
+  {
+    color: inherit;
+    outline: none;
+  }
+}
 .App {
   //text-align: center;
+  //display: flex;
+}
+.demo-content {
   display: flex;
+  flex: 1 1;
+  position: relative;
+}
+.mdc-drawer {
+  min-height: 100vh;
 }
 
 .App-logo {

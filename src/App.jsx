@@ -1,15 +1,26 @@
 import React, {useState, useEffect} from 'react';
-//import logo from './logo.svg';
+import {Switch, Route} from 'react-router-dom';
+
 import './App.scss';
 
 import AppDrawer from './components/AppDrawer/';
 import AppContent from './components/AppContent/';
 
-import { db } from './firebase'
+import DBContext from './context/db'
+
+
+ import { SimpleTopAppBar, TopAppBarFixedAdjust } from '@rmwc/top-app-bar';
+
+
+//import { db } from './firebase'
 import { getLists, getTodos } from './api'
 
 //import '@material/button/dist/mdc.button.css';
-
+import '@rmwc/card/styles';
+import '@rmwc/typography/styles';
+import '@rmwc/list/styles';
+import '@rmwc/top-app-bar/styles';
+import TodoList from './components/TodoList/TodoList';
 
 function App() {
   const [lists, setLists] = useState([]);
@@ -19,37 +30,44 @@ function App() {
 
    getLists().then(setLists)
    getTodos().then(setTodos)
-    
-
-    // db.collection("todos")
-    //   .get()
-    //   .then((snapshot) => {
-    //     const todos = snapshot.docs.map((doc) => ({
-    //       id: doc.id,
-    //       ...doc.data()
-    //   }));
-
-    //   setTodos(todos);
-    // })
-    // .catch(error => {
-    //   console.log('Error getting documents:', error)
-    // })
 
   }, []);
 
 
   return (
+    <DBContext.Provider value={{lists, todos}}>
     <div className="App">
-      <AppDrawer lists={lists} />
-   
-     <AppContent>
-        <ul>
-          { todos.map(todo => <li key={todo.id}>{todo.title}</li>) }
-        </ul>
-       
-     </AppContent>
+      
+      <SimpleTopAppBar
+          title="test"
+          navigationIcon
+          onNav={() => console.log('Navigate')}
+          actionItems={[
+            {
+              icon: 'file_download',
+              onClick: () => console.log('Do Something')
+            },
+            { icon: 'login', onClick: () => console.log('Do Something') },
+            { icon: 'face', onClick: () => console.log('Do Something') }
+          ]}
+        />
+        <TopAppBarFixedAdjust />
+
+     <div className="demo-content">
+        <AppDrawer lists={lists} />
+        <AppContent>
+
+         <Switch>
+
+           <Route path="/:listid" component={TodoList} />
+         </Switch>
+             
+    
+  </AppContent>
+      </div>
      
     </div>
+  </DBContext.Provider>
   );
 }
 

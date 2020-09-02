@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { 
     Drawer, 
@@ -11,6 +12,7 @@ import {
     ListItem, 
     ListItemGraphic,
     ListItemText,
+    ListDivider
  } from '@rmwc/list';
 
 import { Icon } from '@rmwc/icon';
@@ -20,11 +22,13 @@ import '@rmwc/list/styles';
 //import '@rmwc/icon/styles';
 
 function AppDrawer ({lists}) {
+  
+
     return (
         <Drawer> 
             <DrawerHeader>
-                <DrawerTitle>
-                    <Icon icon={{ icon: 'psychology', size: 'large' }} />
+                <DrawerTitle className="app_title">
+                    <Icon icon={{ icon: 'psychology', size: 'xlarge' }} />
                     <h1>ReactTodo</h1>
                     </DrawerTitle>
                 {/* <DrawerSubtitle>Subtitle</DrawerSubtitle> */}
@@ -32,30 +36,40 @@ function AppDrawer ({lists}) {
             <DrawerContent>
                 <List>
                     {[
-                        {title: 'Задачи', icon: 'home'},
-                        {title: 'Важное', icon: 'star'},
-                        {title: 'Запланированные', icon: 'event'},
+                        {title: 'Задачи', icon: 'home', to: '/'},
+                        {title: 'Важное', icon: 'star', to: '/important'},
+                        {title: 'Запланированные', icon: 'event', to: '/planned'},
                     ].map((item, index)=> (
-                        <ListItem key={index}>
+                        <ListItem 
+                            key={item.icon}
+                            
+                        >
+                         <NavLink to={item.to} className="drawer-links">
                             <ListItemGraphic icon={item.icon} />
-                            <ListItemText>{item.title}</ListItemText>
+                            <ListItemText>
+                               {item.title}
+                            </ListItemText>
+                            </NavLink>
                         </ListItem>
                         )
                     )}
                     
                 </List> 
-
+                <ListDivider />
                 <List>
                     {lists.map((item)=> (
-                        <ListItem key={item.id}>
+                        <ListItem 
+                            key={item.id}
+                        >
+                          <NavLink to={item.id} className="drawer-links">
                             <ListItemGraphic icon="list" />
                             <ListItemText>{item.title}</ListItemText>
+                            </NavLink>
                         </ListItem>
                         )
                     )}
                     
                 </List> 
-                       
                
             </DrawerContent>
         </Drawer>
