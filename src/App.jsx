@@ -13,7 +13,7 @@ import DBContext from './context/db'
 
 
 //import { db } from './firebase'
-import { getLists, getTodos } from './api'
+import { getLists, getTodos, getListTodos } from './api'
 
 //import '@material/button/dist/mdc.button.css';
 import '@rmwc/card/styles';
@@ -28,6 +28,7 @@ function App() {
 
   useEffect(() => {
 
+  //get('todos').then(setLists)
    getLists().then(setLists)
    getTodos().then(setTodos)
 
@@ -35,7 +36,7 @@ function App() {
 
 
   return (
-    <DBContext.Provider value={{lists, todos}}>
+    <DBContext.Provider value={{lists, todos, getTodos, getListTodos}}>
     <div className="App">
       
       <SimpleTopAppBar
@@ -59,7 +60,7 @@ function App() {
 
          <Switch>
 
-           <Route path="/:listid" component={TodoList} />
+           <Route path="/:listId" component={TodoList} />
          </Switch>
              
     

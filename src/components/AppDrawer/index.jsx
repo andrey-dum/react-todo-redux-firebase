@@ -23,13 +23,12 @@ import '@rmwc/list/styles';
 
 function AppDrawer ({lists}) {
   
-
     return (
         <Drawer> 
             <DrawerHeader>
                 <DrawerTitle className="app_title">
                     <Icon icon={{ icon: 'psychology', size: 'xlarge' }} />
-                    <h1>ReactTodo</h1>
+                    <NavLink to="/" className="app-logo"><h1>ReactTodo</h1></NavLink>
                     </DrawerTitle>
                 {/* <DrawerSubtitle>Subtitle</DrawerSubtitle> */}
             </DrawerHeader>
