@@ -6,21 +6,20 @@ import './App.scss';
 import AppDrawer from './components/AppDrawer/';
 import AppContent from './components/AppContent/';
 
-import DBContext from './context/db'
+import TodoListPage from './pages/TodoListPage';
+import Home from './pages/Home';
 
+
+import DBContext from './context/db'
 
  import { SimpleTopAppBar, TopAppBarFixedAdjust } from '@rmwc/top-app-bar';
 
+import { getLists, getTodos, getListTodos, createTodo, deleteTodo } from './api'
 
-//import { db } from './firebase'
-import { getLists, getTodos, getListTodos } from './api'
 
-//import '@material/button/dist/mdc.button.css';
-import '@rmwc/card/styles';
 import '@rmwc/typography/styles';
 import '@rmwc/list/styles';
 import '@rmwc/top-app-bar/styles';
-import TodoList from './components/TodoList/TodoList';
 
 function App() {
   const [lists, setLists] = useState([]);
@@ -36,7 +35,7 @@ function App() {
 
 
   return (
-    <DBContext.Provider value={{lists, todos, getTodos, getListTodos}}>
+    <DBContext.Provider value={{lists, todos, getTodos, getListTodos, createTodo, deleteTodo}}>
     <div className="App">
       
       <SimpleTopAppBar
@@ -56,15 +55,15 @@ function App() {
 
      <div className="demo-content">
         <AppDrawer lists={lists} />
+
         <AppContent>
-
          <Switch>
-
-           <Route path="/:listId" component={TodoList} />
+          
+           <Route exact path="/" component={Home} />
+           <Route exact path="/:listId" component={TodoListPage} />
          </Switch>
-             
-    
-  </AppContent>
+        </AppContent>
+        
       </div>
      
     </div>

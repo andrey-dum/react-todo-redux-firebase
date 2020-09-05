@@ -5,7 +5,6 @@ import {
     Drawer, 
     DrawerHeader, 
     DrawerTitle,  
-    DrawerSubtitle, 
     DrawerContent } from '@rmwc/drawer';
 import { 
     List, 
@@ -30,7 +29,6 @@ function AppDrawer ({lists}) {
                     <Icon icon={{ icon: 'psychology', size: 'xlarge' }} />
                     <NavLink to="/" className="app-logo"><h1>ReactTodo</h1></NavLink>
                     </DrawerTitle>
-                {/* <DrawerSubtitle>Subtitle</DrawerSubtitle> */}
             </DrawerHeader>
             <DrawerContent>
                 <List>

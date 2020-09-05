@@ -1,0 +1,9 @@
+.todo-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .mdc-button {
+        padding: 25px 60px;
+        margin-left: 30px;
+    }
+}

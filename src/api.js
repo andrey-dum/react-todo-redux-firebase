@@ -69,7 +69,7 @@ export function getTodos() {
 
 
 
-export function getListTodos(listId, func) {
+export function getListTodos(listId) {
     return db.collection('todos')
         .where('listId', '==', listId)
         .get()
@@ -82,3 +82,27 @@ export function getListTodos(listId, func) {
             return items;
         });          
 }
+
+export function createTodo(data) {
+    return db.collection('todos').add({
+        ...data,
+        completed: false
+    })
+        .then(docRef => docRef.get())
+        .then(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+}
+
+
+export function deleteTodo(todoId) {
+    return db.collection("todos").doc(todoId).delete()
+        .then(function() {
+       return todoId;
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+}
+
+
