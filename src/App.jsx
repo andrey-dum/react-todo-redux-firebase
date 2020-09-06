@@ -14,7 +14,7 @@ import DBContext from './context/db'
 
  import { SimpleTopAppBar, TopAppBarFixedAdjust } from '@rmwc/top-app-bar';
 
-import { getLists, getTodos, getListTodos, createTodo, deleteTodo } from './api'
+import { getLists, getTodos, getListTodos, createTodo, deleteTodo, updateTodo } from './api'
 
 
 import '@rmwc/typography/styles';
@@ -35,7 +35,7 @@ function App() {
 
 
   return (
-    <DBContext.Provider value={{lists, todos, getTodos, getListTodos, createTodo, deleteTodo}}>
+    <DBContext.Provider value={{lists, todos, getTodos, getListTodos, createTodo, deleteTodo, updateTodo}}>
     <div className="App">
       
       <SimpleTopAppBar

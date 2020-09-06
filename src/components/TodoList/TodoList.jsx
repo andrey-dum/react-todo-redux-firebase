@@ -4,11 +4,7 @@ import './index.scss';
 import TodoItem from '../TodoItem';
 import { List, ListDivider, } from '@rmwc/list';
 
-import { LinearProgress } from '@rmwc/linear-progress';
-import '@rmwc/linear-progress/styles';
-
-
-export default function TodoList ({todos,list, onDelete}) {
+export default function TodoList ({todos,list, onDelete, onUpdate}) {
     return (
         <div className="todo-list">
             <h2>{list.title}</h2>
@@ -21,6 +17,7 @@ export default function TodoList ({todos,list, onDelete}) {
                         todo={todo}
                         list={list}
                         onDelete={onDelete}
+                        onUpdate={onUpdate}
                     />
                 
                 )) }

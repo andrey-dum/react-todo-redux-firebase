@@ -106,3 +106,14 @@ export function deleteTodo(todoId) {
 }
 
 
+export function updateTodo(todoId, data) {
+    return db.collection('todos').doc(todoId).update(data)
+    //.then(() => data)
+    .then(() => ({
+        id: todoId,
+        ...data
+    }));
+}
+
+
+

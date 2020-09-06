@@ -4,12 +4,12 @@ import DBContext from '../context/db';
 import TodoList from '../components/TodoList/TodoList';
 import TodoForm from '../components/TodoForm';
 
-import { LinearProgress } from '@rmwc/linear-progress';
-import '@rmwc/linear-progress/styles';
+import { CircularProgress } from '@rmwc/circular-progress';
+import '@rmwc/circular-progress/styles';
 
 
 export default function TodoListPage ({match}) {
-    //const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     //console.log(match)
     const db = useContext(DBContext);
     const [todos, setTodos] = useState([]);
@@ -18,9 +18,10 @@ export default function TodoListPage ({match}) {
         //setTodos();
 
         db.getListTodos(match.params.listId).then(setTodos)
+        setLoading(false)
     }, [db, match.params.listId]);
     
-    const list = db.lists.find(list => list.id === match.params.listId);
+    
 
     function handleSubmit(title) {
         db.createTodo({
@@ -35,18 +36,36 @@ export default function TodoListPage ({match}) {
         });
     }
 
+
+    function handleUpdate (todoId, data) {
+        db.updateTodo(todoId, data).then(data => {
+            //setTodos([...todos.map(t => t.id !== todoId ? ({ ...t, ...data, }) : t)])
+            setTodos([...todos.map(t => t.id === todoId ? ({ ...t, ...data, }) : t)])
+            //console.log(...todos.map(t => t))
+        //  console.log({data})
+        //  console.log(todoId)
+        //  console.log(...todos.map(t => ({...t})))
+            
+        });
+       
+    }
+
+
+    const list = db.lists.find(list => list.id === match.params.listId);
+
     if (!list) return <h2>В этом списке задач нету!</h2>
     
     return (
         <div className="page">
                
-           
+           { loading ?  <div><CircularProgress /> Loading...</div> : 
             <TodoList
                 todos={todos}
                 list={list}
                 onDelete={handleDelete}
+                onUpdate={handleUpdate}
             />
-
+        } 
             <TodoForm
                 onSubmit={handleSubmit}
              /> 

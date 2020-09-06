@@ -14,13 +14,20 @@ import '@material/icon-button/dist/mdc.icon-button.css';
 import { Checkbox } from '@rmwc/checkbox';
 import '@rmwc/checkbox/styles';
 
-export default function TodoItem ({todo, onDelete}) {
-    const [cheked, setChecked] = useState()
+export default function TodoItem ({todo, onDelete, onUpdate}) {
+    //const [cheked, setChecked] = useState();
 
+    function handleChange() {
+        onUpdate(todo.id, { completed: !todo.completed });
+    }
+//onClick={e => e.stopPropagation()}
     return (
-        <ListItem className="todo-list__item" onClick={e => e.stopPropagation()} >
+        <ListItem className="todo-list__item"  >
             
-            <Checkbox checked={todo.completed} /> 
+            <Checkbox 
+                checked={todo.completed}
+                onChange={handleChange}
+                /> 
              
              <ListItemText>
                 {todo.title}
