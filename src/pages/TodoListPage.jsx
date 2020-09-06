@@ -40,7 +40,7 @@ export default function TodoListPage ({match}) {
     function handleUpdate (todoId, data) {
         db.updateTodo(todoId, data).then(data => {
             //setTodos([...todos.map(t => t.id !== todoId ? ({ ...t, ...data, }) : t)])
-            setTodos([...todos.map(t => t.id === todoId ? ({ ...t, ...data, }) : t)])
+            //setTodos([...todos.map(t => t.id === todoId ? ({ ...t, ...data, }) : t)])
             //console.log(...todos.map(t => t))
         //  console.log({data})
         //  console.log(todoId)

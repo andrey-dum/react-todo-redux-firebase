@@ -15,17 +15,20 @@ import { Checkbox } from '@rmwc/checkbox';
 import '@rmwc/checkbox/styles';
 
 export default function TodoItem ({todo, onDelete, onUpdate}) {
-    //const [cheked, setChecked] = useState();
+    const [cheked, setChecked] = useState(todo.completed);
 
-    function handleChange() {
-        onUpdate(todo.id, { completed: !todo.completed });
+    function handleChange(event) {
+        onUpdate(todo.id, { completed: event.target.checked });
+
+        //console.log(event.target.checked)
+        setChecked(event.target.checked)
     }
 //onClick={e => e.stopPropagation()}
     return (
-        <ListItem className="todo-list__item"  >
+        <ListItem className="todo-list__item" onClick={e => e.stopPropagation()} >
             
             <Checkbox 
-                checked={todo.completed}
+                checked={cheked}
                 onChange={handleChange}
                 /> 
              
