@@ -18,6 +18,13 @@ export default function useApi() {
                 .then(setLists)
         }
 
+        function getTodos() {
+            return api.getTodos()
+                .then(setTodos)
+               
+        }
+        
+
         function getListTodos(listId) {
             return api.getListTodos(listId)
                 .then(setTodos)
@@ -37,6 +44,11 @@ export default function useApi() {
                 });
         }
 
+        function updateTodo(todoId, data) {
+            return api.updateTodo(todoId, data)
+        }
+
+
 
         return {
             data: {
@@ -44,10 +56,12 @@ export default function useApi() {
                 todos
             },
             actions: {
+                getTodos,
                 getLists,
                 getListTodos,
                 createTodo,
-                deleteTodo
+                deleteTodo,
+                updateTodo
             }
         }
 

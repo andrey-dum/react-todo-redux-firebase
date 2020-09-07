@@ -1,77 +1,67 @@
 import React, {useContext, useState, useEffect} from 'react'
 
-import DBContext from '../context/db';
+//import DBContext from '../context/db';
 import TodoList from '../components/TodoList/TodoList';
 import TodoForm from '../components/TodoForm';
 import AppSideDetails from '../components/AppSideDetails';
 
-import useApi from '../context/db';
+import useApi from '../hooks/api';
 
 
 import { CircularProgress } from '@rmwc/circular-progress';
 import '@rmwc/circular-progress/styles';
 import { TopAppBar, TopAppBarFixedAdjust } from '@rmwc/top-app-bar';
-import { 
-    Drawer,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerSubtitle,
-    DrawerContent,
-    DrawerAppContent
+// import { 
+//     Drawer,
+//     DrawerHeader,
+//     DrawerTitle,
+//     DrawerSubtitle,
+//     DrawerContent,
+//     DrawerAppContent
 
         
-} from '@rmwc/drawer';
-import '@rmwc/drawer/styles';
+// } from '@rmwc/drawer';
+// import '@rmwc/drawer/styles';
 
 export default function TodoListPage ({match}) {
     const [loading, setLoading] = useState(true);
     //console.log(match)
-    const db = useContext(DBContext);
+    //const db = useContext(DBContext);
+    const  {data: {lists, todos}, actions } = useApi();
 
-    const [todos, setTodos] = useState([]);
+    // const [todos, setTodos] = useState([]);
     const [selectedTodo, setSelectedTodo] = useState(null);
 
     useEffect(() => {
     
         if (match.params.listId) {
-            db.getListTodos(match.params.listId).then(setTodos).then(()=> {
+            actions.getListTodos(match.params.listId).then(()=> {
                 if( todos.length !== 0 ) { setLoading(false) }
             })
         } else {
-            db.getTodos().then(setTodos)
+            actions.getTodos()
             if( todos.length !== 0 ) { setLoading(false) }
         }
         
         
-    }, [db, match.params.listId]);
+    }, [actions, match.params.listId]);
     
     
 
     function handleSubmit(title) {
-        db.createTodo({
+        actions.createTodo({
             title,
             listId: list.id
-        }).then(todo => {setTodos([...todos, todo])});
+        });
     }
 
     function handleDelete (todoId) {
-        db.deleteTodo(todoId).then(todoId => {
-            setTodos([...todos.filter(t => t.id !== todoId)])
-        });
+        actions.deleteTodo(todoId)
     }
 
 
     function handleUpdate (todoId, data) {
-        db.updateTodo(todoId, data).then(data => {
-            //setTodos([...todos.map(t => t.id !== todoId ? ({ ...t, ...data, }) : t)])
-            //setTodos([...todos.map(t => t.id === todoId ? ({ ...t, ...data, }) : t)])
-            //console.log(...todos.map(t => t))
-        //  console.log({data})
-        //  console.log(todoId)
-        //  console.log(...todos.map(t => ({...t})))
-            
-        });
-       
+        actions.updateTodo(todoId, data)
     }
 
     function handleSelect (todo) {
@@ -79,7 +69,7 @@ export default function TodoListPage ({match}) {
     }
 
 
-    const list = db.lists.find(list => list.id === match.params.listId);
+    const list = lists.find(list => list.id === match.params.listId);
 
     if (!list || !todos) return <h2>В этом списке задач нету!</h2>
     

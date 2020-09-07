@@ -27,7 +27,7 @@ function AppDrawer ({lists}) {
             <DrawerHeader>
                 <DrawerTitle className="app_title">
                     <Icon icon={{ icon: 'psychology', size: 'xlarge' }} />
-                    <NavLink to="/" className="app-logo"><h1>ReactTodo</h1></NavLink>
+                    <NavLink to="/" className="app-logo"><h1>React Todo</h1></NavLink>
                     </DrawerTitle>
             </DrawerHeader>
             <DrawerContent>

@@ -7,33 +7,32 @@ import AppDrawer from './components/AppDrawer/';
 import AppContent from './components/AppContent/';
 
 import TodoListPage from './pages/TodoListPage';
-import Home from './pages/Home';
 
-import DBContext from './context/db'
+//import DBContext from './context/db'
 
 
-import { getLists, getTodos, getListTodos, createTodo, deleteTodo, updateTodo } from './api'
-
+//import { getLists, getTodos, getListTodos, createTodo, deleteTodo, updateTodo } from './api'
+import useApi from './hooks/api';
 
 import '@rmwc/typography/styles';
 import '@rmwc/list/styles';
 import '@rmwc/top-app-bar/styles';
 
 function App() {
-  const [lists, setLists] = useState([]);
-  const [todos, setTodos] = useState([]);
+  // const [lists, setLists] = useState([]);
+  // const [todos, setTodos] = useState([]);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  //get('todos').then(setLists)
-   getLists().then(setLists)
-   getTodos().then(setTodos)
+  // //get('todos').then(setLists)
+  //  getLists().then(setLists)
+  //  getTodos().then(setTodos)
 
-  }, []);
-
+  // }, []);
+  const  {data: {lists } } = useApi();
 
   return (
-    <DBContext.Provider value={{lists, todos, getTodos, getListTodos, createTodo, deleteTodo, updateTodo}}>
+   
     <div className="App">
 
      <div className="demo-content">
@@ -54,7 +53,7 @@ function App() {
       </div>
      
     </div>
-  </DBContext.Provider>
+
   );
 }
 

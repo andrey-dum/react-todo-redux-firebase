@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import './index.scss'
 
 import  {TextField} from '@rmwc/textfield'
@@ -14,18 +14,11 @@ function TodoForm ({ onSubmit }) {
 
             onSubmit(title);
             setTitle('')
-
-
-        
     }
 
     function handleChange(event) {
         setTitle(event.target.value)
     }
-
-    // useEffect(() => {
-    //     console.log(title)
-    // }, [title]);
     
     return (
         <div>
