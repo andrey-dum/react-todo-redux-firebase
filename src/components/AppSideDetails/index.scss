@@ -1,0 +1,29 @@
+.todo-details {
+    background: #ffffff;
+    flex: 1;
+    padding: 0 20px;
+    margin-left: 40px;
+    border: 1px solid #fafafa;
+    animation: fade .5s linear;
+    min-height: 500px;
+    position: relative;
+    .todo__details-header{
+        display: flex;
+        justify-content: space-between;
+    }
+    .icon-close{
+         position: absolute;
+         right: 10px;
+         top: 8px;
+    }
+}
+
+@keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+  }
+  

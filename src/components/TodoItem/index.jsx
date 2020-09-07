@@ -14,7 +14,7 @@ import '@material/icon-button/dist/mdc.icon-button.css';
 import { Checkbox } from '@rmwc/checkbox';
 import '@rmwc/checkbox/styles';
 
-export default function TodoItem ({todo, onDelete, onUpdate}) {
+export default function TodoItem ({todo, onDelete, onUpdate, onSelect}) {
     const [cheked, setChecked] = useState(todo.completed);
 
     function handleChange(event) {
@@ -32,7 +32,7 @@ export default function TodoItem ({todo, onDelete, onUpdate}) {
                 onChange={handleChange}
                 /> 
              
-             <ListItemText>
+             <ListItemText onClick={()=>onSelect(todo)}>
                 {todo.title}
             </ListItemText>
             

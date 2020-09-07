@@ -4,10 +4,10 @@ import './index.scss';
 import TodoItem from '../TodoItem';
 import { List, ListDivider, } from '@rmwc/list';
 
-export default function TodoList ({todos,list, onDelete, onUpdate}) {
+export default function TodoList ({todos, list, onDelete, onUpdate, onSelect}) {
     return (
         <div className="todo-list">
-            <h2>{list.title}</h2>
+           {/* {list ? <h2>{list.title}</h2> : ''} */}
            
             <List className="todo-list__items">
                 { todos.map(todo => (
@@ -18,6 +18,7 @@ export default function TodoList ({todos,list, onDelete, onUpdate}) {
                         list={list}
                         onDelete={onDelete}
                         onUpdate={onUpdate}
+                        onSelect={onSelect}
                     />
                 
                 )) }

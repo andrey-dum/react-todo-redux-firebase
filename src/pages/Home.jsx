@@ -17,7 +17,7 @@ export default function Home () {
     }, []);
     
     return (
-        <div className="page">
+        <div className="home-page">
            {todos.map(item => <li>{item.title}</li>)}
         </div>
     )

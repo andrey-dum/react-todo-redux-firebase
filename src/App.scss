@@ -73,3 +73,20 @@
     transform: rotate(360deg);
   }
 }
+
+.todo__list-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex: 1 1;
+  padding: 20px;
+  .todo__list-block {
+    flex: 2;
+    
+  }
+}
+
+.page {
+  .mdc-top-app-bar {
+    padding-left: 25px;
+  }
+}

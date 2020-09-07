@@ -18,8 +18,8 @@ export default function useApi() {
                 .then(setLists)
         }
 
-        function getListsTodos(listId) {
-            return api.getListsTodos(listId)
+        function getListTodos(listId) {
+            return api.getListTodos(listId)
                 .then(setTodos)
         }
 
@@ -40,8 +40,12 @@ export default function useApi() {
 
         return {
             data: {
+                lists,
+                todos
+            },
+            actions: {
                 getLists,
-                getListsTodos,
+                getListTodos,
                 createTodo,
                 deleteTodo
             }
