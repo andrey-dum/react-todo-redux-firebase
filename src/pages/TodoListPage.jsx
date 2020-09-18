@@ -5,7 +5,10 @@ import TodoList from '../components/TodoList/TodoList';
 import TodoForm from '../components/TodoForm';
 import AppSideDetails from '../components/AppSideDetails';
 
-import useApi from '../hooks/api';
+//import useApi from '../hooks/api';
+import DataContext from '../context/store';
+
+import {actions} from '../store'
 
 
 import { CircularProgress } from '@rmwc/circular-progress';
@@ -24,10 +27,11 @@ import { TopAppBar, TopAppBarFixedAdjust } from '@rmwc/top-app-bar';
 // import '@rmwc/drawer/styles';
 
 export default function TodoListPage ({match}) {
-    const [loading, setLoading] = useState(true);
-    //console.log(match)
-    //const db = useContext(DBContext);
-    const  {data: {lists, todos}, actions } = useApi();
+    
+   
+    const {state, dispatch} = useContext(DataContext);
+
+    //const  {data: {lists, todos}, actions } = useApi();
 
     // const [todos, setTodos] = useState([]);
     const [selectedTodo, setSelectedTodo] = useState(null);
@@ -35,16 +39,12 @@ export default function TodoListPage ({match}) {
     useEffect(() => {
     
         if (match.params.listId) {
-            actions.getListTodos(match.params.listId).then(()=> {
-                if( todos.length !== 0 ) { setLoading(false) }
-            })
+            actions.getListTodos(match.params.listId, dispatch)
         } else {
-            actions.getTodos()
-            if( todos.length !== 0 ) { setLoading(false) }
+            actions.getTodos(dispatch)
         }
         
-        
-    }, [actions, match.params.listId]);
+    }, [dispatch, match.params.listId]);
     
     
 
@@ -56,22 +56,21 @@ export default function TodoListPage ({match}) {
     }
 
     function handleDelete (todoId) {
-        actions.deleteTodo(todoId)
+        actions.deleteTodo(todoId, dispatch)
     }
 
 
     function handleUpdate (todoId, data) {
-        actions.updateTodo(todoId, data)
+        actions.updateTodo(todoId, data, dispatch)
     }
 
     function handleSelect (todo) {
         setSelectedTodo(todo)
     }
 
+    const list = state.lists.find(list => list.id === match.params.listId);
 
-    const list = lists.find(list => list.id === match.params.listId);
-
-    if (!list || !todos) return <h2>В этом списке задач нету!</h2>
+    if (!list || !state.todos) return  <div><CircularProgress /> Loading...</div>
     
     return (
         <div className="page">
@@ -85,17 +84,15 @@ export default function TodoListPage ({match}) {
           <div className="todo__list-wrapper">
                 
             <div className="todo__list-block">
-                { loading && 
-                <div><CircularProgress /> Loading...</div>
-                } 
-                { !loading && <TodoList
-                        todos={todos}
+                
+                <TodoList
+                        todos={state.todos}
                         list={list}
                         onDelete={handleDelete}
                         onUpdate={handleUpdate}
                         onSelect={handleSelect}
                     />
-                }
+               
            
             
                 <TodoForm

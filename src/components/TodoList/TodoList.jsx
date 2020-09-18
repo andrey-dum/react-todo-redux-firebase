@@ -7,7 +7,6 @@ import { List, ListDivider, } from '@rmwc/list';
 export default function TodoList ({todos, list, onDelete, onUpdate, onSelect}) {
     return (
         <div className="todo-list">
-           {/* {list ? <h2>{list.title}</h2> : ''} */}
            
             <List className="todo-list__items">
                 { todos.map(todo => (

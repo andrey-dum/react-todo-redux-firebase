@@ -98,9 +98,8 @@ export function createTodo(data) {
 
 export function deleteTodo(todoId) {
     return db.collection("todos").doc(todoId).delete()
-        .then(function() {
-       return todoId;
-    }).catch(function(error) {
+        .then(() => todoId)
+            .catch(function(error) {
         console.error("Error removing document: ", error);
     });
 }

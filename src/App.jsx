@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import {Switch, Route} from 'react-router-dom';
 
 import './App.scss';
@@ -8,35 +8,34 @@ import AppContent from './components/AppContent/';
 
 import TodoListPage from './pages/TodoListPage';
 
-//import DBContext from './context/db'
+
+import {reducer, initialState, actions} from './store'
+import DataContext from './context/store'
 
 
 //import { getLists, getTodos, getListTodos, createTodo, deleteTodo, updateTodo } from './api'
-import useApi from './hooks/api';
+// import useApi from './hooks/api';
 
 import '@rmwc/typography/styles';
 import '@rmwc/list/styles';
 import '@rmwc/top-app-bar/styles';
 
 function App() {
-  // const [lists, setLists] = useState([]);
-  // const [todos, setTodos] = useState([]);
+  const [state, dispatch] = useReducer(reducer, initialState);
+ 
 
-  // useEffect(() => {
+  useEffect(() => {
+    actions.getLists(dispatch)
+  }, []);
 
-  // //get('todos').then(setLists)
-  //  getLists().then(setLists)
-  //  getTodos().then(setTodos)
-
-  // }, []);
-  const  {data: {lists } } = useApi();
+  
 
   return (
-   
+   <DataContext.Provider value={{state, dispatch}} >
     <div className="App">
 
-     <div className="demo-content">
-        <AppDrawer lists={lists} />
+     <div className="page-content">
+        <AppDrawer lists={state.lists} />
 
         <AppContent>
          <Switch>
@@ -53,7 +52,7 @@ function App() {
       </div>
      
     </div>
-
+  </DataContext.Provider>
   );
 }
 

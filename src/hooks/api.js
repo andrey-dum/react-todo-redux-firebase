@@ -49,6 +49,14 @@ export default function useApi() {
         }
 
 
+        // function updateTodo(todoId, data) {
+        //     return api.updateTodo(todoId, data)
+        //         .then((todoId, data) => {
+        //             setTodos([...todos.map(t => t.id !== todoId ? ({...t, ...data}) : t)])
+        //         });
+        // }
+
+
 
         return {
             data: {
