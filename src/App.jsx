@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useReducer} from 'react';
+import React, {useState, useEffect, useReducer, useMemo} from 'react';
 import {Switch, Route} from 'react-router-dom';
 
 import './App.scss';
@@ -7,6 +7,7 @@ import AppDrawer from './components/AppDrawer/';
 import AppContent from './components/AppContent/';
 
 import TodoListPage from './pages/TodoListPage';
+import LoginPage from './pages/Login';
 
 
 import {reducer, initialState, actions} from './store'
@@ -24,14 +25,23 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
  
 
+  const contextValue = useMemo(() => {
+    return { state, dispatch };
+  }, [state, dispatch]);
+
   useEffect(() => {
-    actions.getLists(dispatch)
+    actions.getLists(dispatch);
+    //actions.initAuth();
+    actions.setAuth(dispatch);
+    
   }, []);
 
-  
+  console.log(state)
+
+  if (!state.user) return <LoginPage />;
 
   return (
-   <DataContext.Provider value={{state, dispatch}} >
+   <DataContext.Provider value={contextValue} >
     <div className="App">
 
      <div className="page-content">
@@ -39,9 +49,10 @@ function App() {
 
         <AppContent>
          <Switch>
-          
+         
            <Route exact path="/" component={TodoListPage} />
            <Route exact path="/planned" component={TodoListPage} />
+           <Route exact path="/login" component={LoginPage} />
            <Route exact path="/important" component={TodoListPage} />
            <Route exact path="/:listId/:todoId?" component={TodoListPage} />
          </Switch>

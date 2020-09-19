@@ -67,9 +67,66 @@ export function reducer(state, action) {
 
 
 export const initialState = {
+    user: null,
     lists: [],
     todos: []
 }
+
+/* auth */
+// export function loginUser(login, password, dispatch) {
+//     return api.loginUser(login, password)
+//         .then(user => dispatch({
+//             type: 'LOGIN_USER',
+//             payload: {
+//                 user
+//             }
+//         }));
+// }
+
+/* Auth */
+export function loginUser(email, password) {
+    return api.loginUser(email, password).then(() => ({}));
+}
+
+export function signOutUser() {
+    return api.signOutUser().then(() => ({}));
+}
+
+export function registerUser(email, password) {
+    return api.registerUser(email, password).then(() => ({}));
+}
+
+export function initAuth() {
+    // return dispatch => api.initAuth(user => {
+    //     return user ? dispatch({
+    //         type: 'LOGIN_USER',
+    //         payload: {
+    //             user
+    //         }
+    //     }) : dispatch({
+    //         type: 'LOGOUT_USER'
+    //     });
+    // });
+}
+
+export function setAuth(dispatch) {
+    api.onAuth(user => {
+        if (user) {
+            dispatch({
+                type: 'LOGIN_USER',
+                payload: {
+                    user
+                }
+            });
+        } else {
+            dispatch({
+                type: 'LOGOUT_USER'
+            });
+        }
+     
+    })
+}
+
 
 /* DB */
 export function getLists(dispatch) {
@@ -140,5 +197,9 @@ export const actions = {
     getListTodos,
     createTodo,
     deleteTodo,
-    updateTodo
+    updateTodo,
+    loginUser,
+    initAuth,
+    setAuth,
+    signOutUser
 }

@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, {  useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+
+
+import DataContext from '../../context/store'
 
 import { 
     Drawer, 
@@ -21,6 +24,7 @@ import '@rmwc/list/styles';
 //import '@rmwc/icon/styles';
 
 function AppDrawer ({lists}) {
+    const {state} = useContext(DataContext);
   
     return (
         <Drawer> 
@@ -28,7 +32,10 @@ function AppDrawer ({lists}) {
                 <DrawerTitle className="app_title">
                     <Icon icon={{ icon: 'psychology', size: 'xlarge' }} />
                     <NavLink to="/" className="app-logo"><h1>React Todo</h1></NavLink>
+                   
                     </DrawerTitle>
+                   
+                    <div>{ state.user ? state.user.email : '' }</div>
             </DrawerHeader>
             <DrawerContent>
                 <List>
