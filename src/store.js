@@ -201,5 +201,6 @@ export const actions = {
     loginUser,
     initAuth,
     setAuth,
-    signOutUser
+    signOutUser,
+    registerUser
 }

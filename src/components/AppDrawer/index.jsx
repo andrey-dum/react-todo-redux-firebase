@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 
 import DataContext from '../../context/store'
+import {actions} from '../../store'
+
 
 import { 
     Drawer, 
@@ -25,6 +27,10 @@ import '@rmwc/list/styles';
 
 function AppDrawer ({lists}) {
     const {state} = useContext(DataContext);
+
+    function handleExitButtonClick () {
+        actions.signOutUser()
+    }
   
     return (
         <Drawer> 
@@ -35,7 +41,7 @@ function AppDrawer ({lists}) {
                    
                     </DrawerTitle>
                    
-                    <div>{ state.user ? state.user.email : '' }</div>
+                    <div>{ state.user ? <div>{state.user.email} <button onClick={handleExitButtonClick}>Log Out</button></div> : '' }</div>
             </DrawerHeader>
             <DrawerContent>
                 <List>

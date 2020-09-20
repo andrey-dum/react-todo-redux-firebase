@@ -1,0 +1,30 @@
+.form__page {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    .form__wrapper {
+        width: 400px;
+        border: 1px solid #e9ecef;
+        padding: 20px;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        
+        
+        label {
+            margin-top: 25px;
+        }
+        button {
+            margin-top: 15px;
+        }
+        
+    }
+    .form__error {
+        background: rgb(245, 165, 165);
+        display: inline-block;
+        padding: 4px 15px;
+        border-radius: 6px;
+    }
+}
