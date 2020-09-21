@@ -10,29 +10,20 @@ import TodoListPage from './pages/TodoListPage';
 import LoginPage from './pages/Login';
 
 
-import {reducer, initialState, actions} from './store'
-import DataContext from './context/store'
-
-
-//import { getLists, getTodos, getListTodos, createTodo, deleteTodo, updateTodo } from './api'
-// import useApi from './hooks/api';
+import useStore from './hooks/store';
 
 import '@rmwc/typography/styles';
 import '@rmwc/list/styles';
 import '@rmwc/top-app-bar/styles';
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
  
-
-  const contextValue = useMemo(() => {
-    return { state, dispatch };
-  }, [state, dispatch]);
+  const { state, actions } = useStore();
 
   useEffect(() => {
-    actions.getLists(dispatch);
-    //actions.initAuth();
-    actions.setAuth(dispatch);
+    actions.getLists();
+    actions.initAuth();
+    //actions.setAuth(dispatch);
     
   }, []);
 
@@ -41,7 +32,7 @@ function App() {
   if (!state.user) return <LoginPage />;
 
   return (
-   <DataContext.Provider value={contextValue} >
+
     <div className="App">
 
      <div className="page-content">
@@ -57,13 +48,11 @@ function App() {
            <Route exact path="/:listId/:todoId?" component={TodoListPage} />
          </Switch>
         </AppContent>
-
-
         
       </div>
      
     </div>
-  </DataContext.Provider>
+
   );
 }
 

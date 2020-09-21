@@ -40,7 +40,7 @@ import { db, auth } from './firebase';
 
 
 /* Auth */
-export function loginUser(email, password) {
+export function logInUser(email, password) {
     return auth.signInWithEmailAndPassword(email, password);
 }
 
@@ -53,14 +53,14 @@ export function registerUser(email, password) {
 }
 
 
-// export function initAuth(onAuth) {
-//     auth.onAuthStateChanged(onAuth);
-// }
-
-
-export function onAuth(handleAuth) {
-    auth.onAuthStateChanged(handleAuth);
+export function initAuth(onAuth) {
+    auth.onAuthStateChanged(onAuth);
 }
+
+
+// export function onAuth(handleAuth) {
+//     auth.onAuthStateChanged(handleAuth);
+// }
 
 
 

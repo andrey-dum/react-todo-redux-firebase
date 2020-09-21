@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import './index.scss'
 
-import {reducer, initialState, actions} from '../../store'
+
+import useStore from '../../hooks/store';
 
 
 import  {TextField} from '@rmwc/textfield'
@@ -10,11 +11,11 @@ import  {Button} from '@rmwc/button'
 
 
 export default function LoginPage () {
+    const { actions } = useStore();
+
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
-
     const [error, setError] = useState('');
-    
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -22,14 +23,13 @@ export default function LoginPage () {
 
     // function handleLogInButtonClick () {
     //     actions.loginUser(login, password)
-
     //     setLogin('')
     //     setPassword('')
     // }
 
     function handleLogInButtonClick() {
         if (login && password) {
-            actions.loginUser(login, password)
+            actions.logInUser(login, password)
                 .catch(error => setError(error.message));
         }
     }
@@ -69,7 +69,7 @@ export default function LoginPage () {
                     />
                       <Button onClick={handleLogInButtonClick} label="Вход" raised />
                       <Button onClick={handleRegisterButtonClick} label="Регистрация" raised />
-                    {/* <button type="submit">Login</button> */}
+    
                     
                 </form>
             </div>
