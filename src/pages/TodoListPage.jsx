@@ -21,16 +21,17 @@ export default function TodoListPage ({match}) {
         if (match.params.listId) {
             actions.getListTodos(match.params.listId)
         } else {
-            actions.getTodos()
+            actions.getTodos(state.user.uid)
         }
-    }, [actions, match.params.listId]);
+    }, [actions, match.params.listId ]);
     
     
 
     function handleSubmit(title) {
         actions.createTodo({
             title,
-            listId: list.id
+            listId: list.id || '',
+            userId: state.user.uid
         });
     }
 
@@ -47,7 +48,7 @@ export default function TodoListPage ({match}) {
         setSelectedTodo(todo)
     }
 
-    const list = state.lists.find(list => list.id === match.params.listId);
+    const list = state.lists.find(list => list.id === match.params.listId) || { title: 'Задачи' };
 
     if (!list || !state.todos) return  <div><CircularProgress /> Loading...</div>
     

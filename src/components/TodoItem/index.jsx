@@ -39,10 +39,19 @@ export default function TodoItem ({todo, onDelete, onUpdate, onSelect}) {
             <ListItemMeta >
                 <IconButton 
                 icon="delete" 
-                label="Rate this!"
+                label="delete!"
                 onClick={()=>onDelete(todo.id)}
                  />
             </ListItemMeta>
+
+            <ListItemMeta >
+                <IconButton 
+                icon={ todo.important ? 'star' : 'star_outline' }
+                onClick={ () => onUpdate(todo.id, {important: !todo.important}) }
+                />
+            </ListItemMeta>
+
+            
         </ListItem>
         
     );

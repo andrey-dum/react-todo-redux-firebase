@@ -28,8 +28,8 @@ export function initAuth() {
 
 
 /* DB */
-export function getLists() {
-    return api.getLists()
+export function getLists(userId) {
+    return api.getLists(userId)
         .then(lists => ({
             type: 'GET_LISTS',
             payload: {
@@ -38,8 +38,8 @@ export function getLists() {
         }));
 }
 
-export function getTodos() {
-    return api.getTodos()
+export function getTodos(userId) {
+    return api.getTodos(userId)
         .then(todos => ({
             type: 'GET_TODOS',
             payload: {

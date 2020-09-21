@@ -65,8 +65,9 @@ export function initAuth(onAuth) {
 
 
 
-export function getLists() {
+export function getLists(userId) {
     return db.collection('lists')
+        .where('userId', '==', userId)
         .get()
         .then(snapshot => {
             const items = snapshot.docs.map(doc => ({
@@ -79,9 +80,10 @@ export function getLists() {
 }
 
 
-export function getTodos() {
+export function getTodos(userId = '') {
     return db.collection('todos')
-       
+        .where('listId', '==', '')
+        .where('userId', '==', userId)
         .get()
         .then(snapshot => {
             const items = snapshot.docs.map(doc => ({

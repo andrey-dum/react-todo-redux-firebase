@@ -3,6 +3,7 @@ import './index.scss';
 
 import { IconButton } from '@rmwc/icon-button';
 
+import  {TextField} from '@rmwc/textfield'
 
 export default function AppSideDetails({selectedTodo, onClose}) {
 
@@ -18,11 +19,35 @@ export default function AppSideDetails({selectedTodo, onClose}) {
                  />
             </div>
             <div className="todo__details-title">
-            <h4>{selectedTodo.title}</h4>
+            {/* <h4>{selectedTodo.title}</h4> */}
+
+            <TextField  
+                value={selectedTodo.title}
+                onChange={()=>{}}
+                fullwidth
+                required
+                label="" />
+
+                <TextField 
+                type="date-local"
+                value={Date.now()}
+                onChange={()=>{}}
+                fullwidth
+                required
+                label="Дата выполнения" />
+
             </div>
              
            
-           <hr/>
+            <h4>Шаги</h4>
+                <TextField  
+                value={''}
+                onChange={()=>{}}
+                fullwidth
+                required
+                label="Шаг..." />
+
+           
       </div>
     )
 }

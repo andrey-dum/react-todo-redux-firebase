@@ -21,11 +21,14 @@ function App() {
   const { state, actions } = useStore();
 
   useEffect(() => {
-    actions.getLists();
     actions.initAuth();
-    //actions.setAuth(dispatch);
-    
-  }, []);
+  }, [actions]);
+
+  useEffect(() => {
+    if (state.user) {
+      actions.getLists(state.user.uid);
+    }
+  }, [state.user, actions]);
 
   console.log(state)
 
