@@ -112,7 +112,10 @@ export function getListTodos(listId) {
 export function createTodo(data) {
     return db.collection('todos').add({
         ...data,
-        completed: false
+        completed: false,
+        notes: '',
+        dueDate: null,
+        steps: [],
     })
         .then(docRef => docRef.get())
         .then(doc => ({

@@ -2,8 +2,8 @@ import firebase from 'firebase'
 
 // Initialize Cloud Firestore through Firebase
 firebase.initializeApp({
-    apiKey: process.env.REACT_APP_API_KEY,
-   
+    //apiKey: process.env.REACT_APP_API_KEY,
+    apiKey: 'AIzaSyDQhe7XBwgehJmO_x9T_iSWHRA2CUtlZGE',
     authDomain: 'react-notes-vm.firebaseapp.com',
     projectId: 'react-notes-vm',
     databaseURL: 'https://react-notes-vm.firebaseio.com',
