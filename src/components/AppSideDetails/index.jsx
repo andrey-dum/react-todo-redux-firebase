@@ -4,6 +4,7 @@ import './index.scss';
 import { IconButton } from '@rmwc/icon-button';
 
 import  {TextField} from '@rmwc/textfield'
+import TodoList from '../TodoList/TodoList';
 
 export default function AppSideDetails({selectedTodo, onClose}) {
 
@@ -30,7 +31,7 @@ export default function AppSideDetails({selectedTodo, onClose}) {
 
                 <TextField 
                 type="date-local"
-                value={Date.now()}
+                value={selectedTodo.dueDate}
                 onChange={()=>{}}
                 fullwidth
                 required
@@ -40,12 +41,16 @@ export default function AppSideDetails({selectedTodo, onClose}) {
              
            
             <h4>Шаги</h4>
+        { selectedTodo.steps && selectedTodo.steps.length > 0 && 
+            selectedTodo.steps.map((step, index) =>  <li>{step}</li>) 
+        }
+
                 <TextField  
                 value={''}
                 onChange={()=>{}}
                 fullwidth
                 required
-                label="Шаг..." />
+                label="Добавить" />
 
            
       </div>

@@ -82,7 +82,7 @@ export function getLists(userId) {
 
 export function getTodos(userId = '') {
     return db.collection('todos')
-        .where('listId', '==', '')
+        // .where('listId', '==', '')
         .where('userId', '==', userId)
         .get()
         .then(snapshot => {
@@ -111,10 +111,44 @@ export function getListTodos(listId) {
         });          
 }
 
+export function createList(data) {
+    return db.collection('lists').add({
+        icon: '',
+        sort: '',
+        todos: [],
+        ...data,
+        
+    })
+        .then(docRef => docRef.get())
+        .then(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+}
+
+export function updateList(listId, data) {
+    return db.collection('lists').doc(listId).update(data)
+    //.then(() => data)
+    .then(() => ({
+        id: listId,
+        ...data
+    }));
+}
+
+export function deleteList(listId) {
+    return db.collection("lists").doc(listId).delete()
+        .then(() => listId)
+            .catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+}
+
+
 export function createTodo(data) {
     return db.collection('todos').add({
         ...data,
         completed: false,
+        important: false,
         notes: '',
         dueDate: null,
         steps: [],

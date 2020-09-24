@@ -1,10 +1,12 @@
-import React, {  useContext } from 'react';
+import React, {  useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import './index.scss';
+//import DataContext from '../../context/store'
+//import {actions} from '../../store'
+import useStore from '../../hooks/store'
 
-import DataContext from '../../context/store'
-import {actions} from '../../store'
-
+import  {TextField} from '@rmwc/textfield'
 
 import { 
     Drawer, 
@@ -16,22 +18,41 @@ import {
     ListItem, 
     ListItemGraphic,
     ListItemText,
-    ListDivider
+    ListDivider,
+    ListItemMeta
  } from '@rmwc/list';
-
+ import { IconButton } from '@rmwc/icon-button';
 import { Icon } from '@rmwc/icon';
-
+import  {Button} from '@rmwc/button'
 import '@rmwc/drawer/styles';
 import '@rmwc/list/styles';
 //import '@rmwc/icon/styles';
 
 function AppDrawer ({lists}) {
-    const {state} = useContext(DataContext);
+    //const {state} = useContext(DataContext);
+    const {state, actions} = useStore();
+    const [listTitle, setListTitle] = useState('');
 
     function handleExitButtonClick () {
         actions.signOutUser()
     }
-  
+
+    function handleSubmit (event) {
+        event.preventDefault();
+
+        actions.createList({
+            title: listTitle,
+            userId: state.user.uid
+        }).then((res) => {
+            setListTitle('')
+        });
+    }
+
+    function handleDeleteList (listId) {
+        actions.deleteList(listId)
+    
+    }
+
     return (
         <Drawer> 
             <DrawerHeader>
@@ -70,17 +91,37 @@ function AppDrawer ({lists}) {
                     {lists.map((item)=> (
                         <ListItem 
                             key={item.id}
+                            className="side__list-item"
                         >
                           <NavLink to={item.id} className="drawer-links">
                             <ListItemGraphic icon="list" />
                             <ListItemText>{item.title}</ListItemText>
                             </NavLink>
+                            <ListItemMeta >
+                            <IconButton 
+                                icon='delete'
+                                onClick={() => handleDeleteList(item.id)}
+                                />
+                           </ListItemMeta >
+                           
                         </ListItem>
                         )
                     )}
+                
                     
                 </List> 
                
+
+                <form onSubmit={handleSubmit} className="form__list">
+                <TextField 
+                    value={listTitle}
+                    onChange={(event) => setListTitle(event.target.value)}
+                    fullwidth
+                    required
+                    label="Имя списка..." />
+              <Button  label="Добавить"  />
+
+                </form>
             </DrawerContent>
         </Drawer>
     )

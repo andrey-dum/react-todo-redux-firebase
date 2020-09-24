@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
 
-import { Typography } from '@rmwc/typography';
-
 import { 
     ListItem, 
     ListItemGraphic,

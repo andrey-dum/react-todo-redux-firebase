@@ -58,6 +58,43 @@ export function getListTodos(listId) {
         }));
 }
 
+export function createList(listId, data) {
+    return api.createList(listId, data)
+        .then(list => ({
+            type: 'CREATE_LIST',
+            payload: {
+                list
+            }
+        }));
+}
+// export function updateList(listId, data) {
+//     return api.updateList(listId, data)
+//         .then(list => ({
+//             type: 'UPDATE_LIST',
+//             payload: {
+//                 list
+//             }
+//         }));
+// }
+export function updateList(...args) {
+    return api.updateList(...args)
+        .then(list => ({
+            type: 'UPDATE_LIST',
+            payload: {
+                list
+            }
+        }));
+}
+export function deleteList(listId) {
+    return api.deleteList(listId)
+        .then(listId => ({
+            type: 'DELETE_LIST',
+            payload: {
+                listId
+            }
+        }));
+}
+
 export function createTodo(data) {
     return api.createTodo(data)
         .then(todo => ({

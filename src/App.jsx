@@ -27,10 +27,10 @@ function App() {
   useEffect(() => {
     if (state.user) {
       actions.getLists(state.user.uid);
+      actions.getTodos(state.user.uid);
     }
   }, [state.user, actions]);
 
-  console.log(state)
 
   if (!state.user) return <LoginPage />;
 

@@ -1,0 +1,19 @@
+.side__list-item  {
+    .mdc-icon-button {
+        display: none;
+    }
+    &:hover {
+        .mdc-icon-button {
+            display: block;
+        }
+    }
+}
+
+.form__list {
+    padding: 15px;
+    text-align: center;
+    .mdc-button {
+        margin-top: 150px;
+        margin: 0 auto;
+    }
+}
